@@ -22,6 +22,23 @@ public class AlbumDao {
 	@Autowired
 	SqlSessionTemplate abcd;
 	
+	public void delete(int id) {
+		System.out.println(this.getClass() + "delete() 메소드 호출됨");
+		this.abcd.delete(namespace + ".delete", id);
+	}
+	
+	// 앨범 한 개의 정보 얻어오기
+	public Album getAlbumById(int id) {
+		System.out.println(this.getClass() + " getAlbumById() 메소드 들어옴");
+		return this.abcd.selectOne(namespace + ".getAlbumById", id);
+	}
+	
+	// 앨범 정보 수정하기
+	public void update(Album album) {
+		System.out.println(this.getClass() + " updateData() 메소드 들어옴");
+		this.abcd.update(namespace + ".updateData", album);
+	}
+	
 	// 앨범 등록하기
 	public void insert(Album album) {
 		System.out.println(this.getClass() + "insert() 메소드 들어옴");

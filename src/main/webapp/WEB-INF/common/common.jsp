@@ -13,5 +13,5 @@
 			+ uploadPath;	
 	
 	String realPath1 =  application.getRealPath( uploadPath ) ;
-	/* out.print(realPath1) ; */
+	out.print(realPath1) ;
 %>

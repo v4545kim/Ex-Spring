@@ -3,13 +3,34 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="MyAlbum">
-	<insert id="insert" parameterType="MyAlbum">
-		insert into albums(id, albumname, song, lyricist, songwriter, transcription, 
-		writerdate, image, genre, mediatype, emailagree)
-		values(seqalbum.nextval, #{albumname}, #{song}, #{lyricist}, #{songwriter}, #{transcription}, 
-		#{writerdate}, #{image}, #{genre}, #{mediatype}, #{emailagree})
-	</insert>
 
+	<delete id="delete" parameterType="Integer">
+		delete from albums where id = #{id}
+	</delete>
+
+	<sql id="myselect">
+		select id, albumname, song, lyricist, songwriter,
+		transcription, to_char(writerdate, 'yyyy/mm/dd') as writerdate, image,
+		genre, mediatype, emailagree
+		from albums
+	</sql>
+	
+	<!-- 기존 기입 정보 가져오기 -->
+	<select id="getAlbumById" parameterType="int" resultType="MyAlbum">
+		<include refid="myselect" />
+		where id = #{id}
+	</select>
+	
+	<!-- 데이터 수정하기 -->
+	<update id="updateData" parameterType="MyAlbum">
+		update albums set
+		albumname = #{albumname}, song = #{song},
+		lyricist = #{lyricist}, songwriter = #{songwriter},
+		transcription = #{transcription}, writerdate = #{writerdate}, image = #{image},
+		genre = #{genre}, mediatype = #{mediatype}, emailagree = #{emailagree}
+		where id = #{id}
+	</update>
+	
 	<select id="getTotalCount" resultType="Integer">
 		select count(*) from albums
 		<if test="what == 'albumname'">
@@ -19,13 +40,6 @@
 			where song like #{keyword}
 		</if>
 	</select>
-	
-	<sql id="myselect">
-		select id, albumname, song, lyricist, songwriter,
-		transcription, to_char(writerdate, 'yyyy/mm/dd') as writerdate, image,
-		genre, mediatype, emailagree
-		from albums
-	</sql>
 	
 	<select id="getAlbumList" resultType="MyAlbum">
 		<include refid="myselect"/>
@@ -44,5 +58,12 @@
 		where module = #{module} and field = #{field}
 		order by mykey asc
 	</select>
+	
+	<insert id="insert" parameterType="MyAlbum">
+		insert into albums(id, albumname, song, lyricist, songwriter, transcription, 
+		writerdate, image, genre, mediatype, emailagree)
+		values(seqalbum.nextval, #{albumname}, #{song}, #{lyricist}, #{songwriter}, #{transcription}, 
+		#{writerdate}, #{image}, #{genre}, #{mediatype}, #{emailagree})
+	</insert>
 	
 </mapper>

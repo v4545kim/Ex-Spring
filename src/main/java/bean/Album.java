@@ -155,4 +155,11 @@ public class Album {
 		this.emailagree = emailagree;
 	}
 
+	@Override
+	public String toString() {
+		return "Album [MUST_INPUT=" + MUST_INPUT + ", id=" + id + ", albumname=" + albumname + ", song=" + song
+				+ ", lyricist=" + lyricist + ", songwriter=" + songwriter + ", transcription=" + transcription
+				+ ", writerdate=" + writerdate + ", image=" + image + ", abcd=" + abcd + ", genre=" + genre
+				+ ", mediatype=" + mediatype + ", emailagree=" + emailagree + "]";
+	}
 }

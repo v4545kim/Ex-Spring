@@ -48,4 +48,15 @@
 		
 	</beans:bean>
 	
+	
+	<!-- 인터셉터 관련 설정 -->
+	<beans:bean id="LoginInterceptor" class="interceptor.LoginCheckInterceptor" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/list.al"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>
